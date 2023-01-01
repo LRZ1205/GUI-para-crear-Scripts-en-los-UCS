@@ -91,60 +91,146 @@ class Example(QMainWindow):
         self.vlans_str = self.text_vlans.toPlainText()
         self.vlans_array = self.vlans_str.split(",")
         self.content_combo_vnic = self.combo_vnic.currentText()
-        self.POD1_port_channels_gestion =["60","61"]
-        self.POD1_port_channels_storage =["41","41"]
-        self.POD1_port_channels_produccion  = ["40","40"]
-        self.POD2_port_channels_gestion = ["62","63"]
-        self.POD2_port_channels_storage =["43","43"]
-        self.POD2_port_channels_produccion = ["42","42"]
-        self.POD3_port_channels_gestion =["64","65"]
-        self.POD3_port_channels_storage= ["45","45"]
-        self.POD3_port_channels_produccion = ["44","44"]
-        self.POD4_port_channels_gestion = ["66","67"]
-        self.POD4_port_channels_storage = ["41","41"]
-        self.POD4_port_channels_produccion = ["40","40"]
+        self.POD1_port_channels_gestion =["a 60","b 61"]
+        self.POD1_port_channels_storage =["a 41","b 41"]
+        self.POD1_port_channels_produccion  = ["a 40","b 40"]
+        self.POD2_port_channels_gestion = ["a 62","b 63"]
+        self.POD2_port_channels_storage =["a 43","b 43"]
+        self.POD2_port_channels_produccion = ["a 42","b 42"]
+        self.POD3_port_channels_gestion =["a 64","b 65"]
+        self.POD3_port_channels_storage= ["a 45","b 45"]
+        self.POD3_port_channels_produccion = ["a 44","b 44"]
+        self.POD4_port_channels_gestion = ["a 66","b 67"]
+        self.POD4_port_channels_storage = ["a 41","b 41"]
+        self.POD4_port_channels_produccion = ["a 40","b 40"]
         self.Fabric_type_A = ["-A"]
         self.Fabric_type_B = ["-B"]
         self.Fabric_type_A_and_B = ["-A","-B"]
-
+        self.Puertos_Fabric_interconnect =["13","14"]
+        self.Member_port_channel =["a","b"]
         if self.combo.currentIndex() == 0: #El usuario selecciono la opcion de crear VLANs
-            if self.btn_a_type.isChecked() :
-                self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A)
-            elif self.btn_b_type.isChecked():
-                self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B)
-            elif self.btn_both_type.isChecked():
-                self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B)
-            else:
-                print("Ocurrio un Error!")
+
+            if self.combo_pod.currentIndex()==0: #El usuario selecciono el POD1
+                if self.combo_vnic.currentText()=="gestion":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD1_port_channels_gestion)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD1_port_channels_gestion)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD1_port_channels_gestion)
+                elif self.combo_vnic.currentText()=="ip-storage":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD1_port_channels_storage)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD1_port_channels_storage)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD1_port_channels_storage)
+                elif self.combo_vnic.currentText()=="produccion":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD1_port_channels_produccion)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD1_port_channels_produccion)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD1_port_channels_produccion)
+
+            elif self.combo_pod.currentIndex()==1:
+                if self.combo_vnic.currentText()=="gestion":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD2_port_channels_gestion)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD2_port_channels_gestion)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD2_port_channels_gestion)
+                elif self.combo_vnic.currentText()=="ip-storage":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD2_port_channels_storage)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD2_port_channels_storage)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD2_port_channels_storage)
+                elif self.combo_vnic.currentText()=="produccion":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD2_port_channels_produccion)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD2_port_channels_produccion)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD2_port_channels_produccion)
+
+            elif self.combo_pod.currentIndex()==2:
+                if self.combo_vnic.currentText()=="gestion":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD3_port_channels_gestion)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD3_port_channels_gestion)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD3_port_channels_gestion)
+                elif self.combo_vnic.currentText()=="ip-storage":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD3_port_channels_storage)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD3_port_channels_storage)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD3_port_channels_storage)
+                elif self.combo_vnic.currentText()=="produccion":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD3_port_channels_produccion)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD3_port_channels_produccion)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD3_port_channels_produccion)
+
+            elif self.combo_pod.currentIndex()==3:
+                if self.combo_vnic.currentText()=="gestion":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD4_port_channels_gestion)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD4_port_channels_gestion)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD4_port_channels_gestion)
+                elif self.combo_vnic.currentText()=="ip-storage":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD4_port_channels_storage)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD4_port_channels_storage)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD4_port_channels_storage)
+                elif self.combo_vnic.currentText()=="produccion":
+                    if self.btn_a_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,self.POD4_port_channels_produccion)
+                    elif self.btn_b_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,self.POD4_port_channels_produccion)
+                    elif self.btn_both_type.isChecked():
+                        self.create_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,self.POD4_port_channels_produccion)
+
         elif self.combo.currentIndex() == 1: #El usuario selecciono la opcion de borrar VLANs
-            if self.combo_pod.currentIndex()==0:
+            if self.combo_pod.currentIndex()==0:#El usuario seleccion el POD1
                 if self.btn_a_type.isChecked() :
-                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,["a"],["13","14"],True)
+                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,["a"],self.Puertos_Fabric_interconnect,True)
                 elif self.btn_b_type.isChecked():
-                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,["b"],["13","14"],True)
+                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,["b"],self.Puertos_Fabric_interconnect,True)
                 elif self.btn_both_type.isChecked():
-                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,["a","b"],["13","14"],True)
+                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,["a","b"],self.Puertos_Fabric_interconnect,True)
                 else:
                     print("Ocurrio un Error!")
             else:
                 if self.btn_a_type.isChecked() :
-                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,["-A"],["a"],["13","14"],False)
+                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A,["a"],self.Puertos_Fabric_interconnect,False)
                 elif self.btn_b_type.isChecked():
-                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,["-B"],["b"],["13","14"],False)
+                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_B,["b"],self.Puertos_Fabric_interconnect,False)
                 elif self.btn_both_type.isChecked():
-                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,["-A","-B"],["a","b"],["13","14"],False)
+                    self.delete_vlans(self.vlans_array,self.content_combo_vnic,self.Fabric_type_A_and_B,["a","b"],self.Puertos_Fabric_interconnect,False)
                 else:
                     print("Ocurrio un Error!")
             
 
     def vnics_to_delete(self): #Metodo que llena el combo_vnic de los vnics que se pueden borrar
         self.combo_vnic.clear()
-        combo_domain_vnics=["gestion","ip-storage","produccion"]
+        combo_domain_vnics=["cisco-avs","vmkernel","vmotion-senha","vmotion-spac","gestion","ip-storage","produccion"]
         self.combo_vnic.addItems(combo_domain_vnics)
         
     def vnics_to_create(self):#Metodo que llena el combo_vnic de los vnics que se pueden crear
         self.combo_vnic.clear()
-        combo_domain_vnics=["cisco-avs","vmkernel","vmotion-senha","vmotion-spac"]
+        combo_domain_vnics=["gestion","ip-storage","produccion"]
         self.combo_vnic.addItems(combo_domain_vnics)    
      
     def combo_create_or_delete(self): #Metodo que llena el combo_pod de los POD existentes
@@ -202,8 +288,23 @@ class Example(QMainWindow):
             f.write("exit\n")
         f.close()
 
-    def create_vlans(self,vlans_array,content_combo_vnic,fabric_type):
+    def create_vlans(self,vlans_array,content_combo_vnic,fabric_type,POD_port_channels):
+        digitos = ["0","1","2","3","4","5","6","7","8","9"]
+        vlan_number = ""
         f= open("Create VLANs in "+ content_combo_vnic +" at " + self.combo_pod.currentText() + ".txt","w")
+        
+        f.write ("scope eth-uplink\n")
+        for i in vlans_array:
+            for k in i:
+                if k in digitos:
+                    vlan_number+=k 
+            f.write("\tenter "+ i+ " "+  vlan_number + "\n")
+            for  j in POD_port_channels:
+                f.write("\t\tcreate member port-channel "+ j +"\n")
+                f.write ("\t\t\tset isnative no\n")
+                f.write("\t\texit\n")
+            vlan_number=""
+                        
         for j in fabric_type:
             f.write("scope org\n")
             f.write("enter vnic-templ " +content_combo_vnic + j +" target adapter\n")
